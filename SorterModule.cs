@@ -59,14 +59,29 @@ namespace SorterModule
             }
 
         }
+
+        private static List<int> GetSplitList( int b, int e,int n)
+        {
+            List<int> res = new List<int> { };
+            double serv2 = (b + e) / (n);
+            int serv = Convert.ToInt32(Math.Ceiling(serv2));
+            int k = b;
+            while (k <= e)
+            {
+                res.Add(k);
+                k += serv;
+            }
+            return res;
+        }
+
         //Переделать под нужды отрисовки!
-        private static int GetColorByDividers(double q)//Для подборки цвета.
+        private static int GetColorByDividers(double q, List <int> l1)//Для подборки цвета.
         {
             foreach (var p in Dividers)
             {
                 if ((q >= p.min) && (q < p.max))
                 {
-                    return 0;
+                    return l1[Dividers.IndexOf(p)];
                 }
             }
             return 0;
@@ -103,6 +118,7 @@ namespace SorterModule
                     if (KeyVals.Dict.ContainsKey(item1.Key))
                     {
                         q[ser].Add(KeyVals.Dict[item1.Key], GetColorByDividers(item1.Value));
+                        
                     }
                     else
                     {
