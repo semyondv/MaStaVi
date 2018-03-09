@@ -1,0 +1,12 @@
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\bin\Release\Map Statistical Visualisator.exe.config
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\bin\Release\Map Statistical Visualisator.exe
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\bin\Release\Map Statistical Visualisator.pdb
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\bin\Release\DrawMap.dll
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Map Statistical Visualisator.csprojResolveAssemblyReference.cache
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Map Statistical Visualisator.csproj.ResolveComReference.cache
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Project.DialogSettings.resources
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Project.Font1.resources
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Project.Properties.Resources.resources
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Map Statistical Visualisator.csproj.GenerateResource.Cache
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Map Statistical Visualisator.exe
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Map Statistical Visualisator.pdb

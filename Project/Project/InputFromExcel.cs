@@ -21,7 +21,9 @@ namespace InputModule
             }
         }
 
-       
+        public static string nam = "";
+
+
 
         class KWNotFound : Exception
         {
@@ -45,6 +47,8 @@ namespace InputModule
                 ws.Cells[i, i1].Interior.ColorIndex = 3;
             }
         }
+        
+
         //!!!!Формат Дата <Регион, Значение> !!!!
         private static Dictionary<string, Dictionary<string, double>> ReadFromExcelFile(string FilePath)//Already works!
         {
@@ -57,91 +61,94 @@ namespace InputModule
             {
 
                 excelWB = excelApp.Workbooks.Open(FilePath);
-                Excel.Worksheet ws = excelWB.Sheets[1];
-                var excelcells = ws.Cells.Find("!Table!", Missing.Value, Missing.Value, Excel.XlLookAt.xlPart, Missing.Value,
-       Excel.XlSearchDirection.xlNext,
-       Missing.Value, Missing.Value, Missing.Value);
-                if (excelcells == null)
+            Excel.Worksheet ws = excelWB.Sheets[1];
+            var excelcells = ws.Cells.Find("!Table!", Missing.Value, Missing.Value, Excel.XlLookAt.xlPart, Missing.Value,
+   Excel.XlSearchDirection.xlNext,
+   Missing.Value, Missing.Value, Missing.Value);
+            if (excelcells == null)
+            {
+                throw new KWNotFound();
+            }
+            
+            int colst = excelcells.Column + 1;
+            int rowst = excelcells.Row + 2;
+            nam = ws.Cells[rowst-1, colst-1].Text();
+            int colend = colst;
+            int rowend = rowst;
+            // Excel.Range r = ws.Range[ws.Cells[rowst,colst],ws.Cells[rowst+1000,colst + 1000]];
+            while (true)
+            {
+                if (ws.Cells[rowst, colend].Text != "")
                 {
-                    throw new KWNotFound();
+                    colend += 1;
                 }
-                int colst = excelcells.Column + 1;
-                int rowst = excelcells.Row + 2;
-                int colend = colst;
-                int rowend = rowst;
-                // Excel.Range r = ws.Range[ws.Cells[rowst,colst],ws.Cells[rowst+1000,colst + 1000]];
-                while (true)
+                else
                 {
-                    if (ws.Cells[rowst, colend].Text != "")
-                    {
-                        colend += 1;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    break;
                 }
+            }
 
-                while (true)
+            while (true)
+            {
+                if (ws.Cells[rowend, colst].Text != "")
                 {
-                    if (ws.Cells[rowend, colst].Text != "")
-                    {
-                        rowend += 1;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    rowend += 1;
                 }
-                if ((colend == colst) || (rowend == rowst))
+                else
                 {
-                    throw new EmptyTable();
+                    break;
                 }
-                /*Excel.Range r = ws.Range[ws.Cells[rowst,colst],ws.Cells[rowend,colend]];
-                object[,] arr = r.Value2;*/
+            }
+            if ((colend == colst) || (rowend == rowst))
+            {
+                throw new EmptyTable();
+            }
+            /*Excel.Range r = ws.Range[ws.Cells[rowst,colst],ws.Cells[rowend,colend]];
+            object[,] arr = r.Value2;*/
 
-                for (int i = colst; i < colend; i++)
+            for (int i = colst; i < colend; i++)
+            {
+                string currstr = "";
+                if ((ws.Cells[rowst - 1, i].Text != ""))
                 {
-                    string currstr = "";
-                    if ((ws.Cells[rowst-1, i].Text != ""))
+                    currstr = ws.Cells[rowst - 1, i].Value2.ToString();
+                }
+                else
+                {
+                    throw new EmptyCell(rowst - 1, i, ws);
+                }
+                result.Add(currstr, new Dictionary<string, double> { });
+                for (int i1 = rowst; i1 < rowend; i1++)
+                {
+                    string currstrins = "";
+                    if ((ws.Cells[i1, colst - 1].Text != ""))
                     {
-                        currstr = ws.Cells[rowst-1, i].Value2.ToString();
+                        currstrins = ws.Cells[i1, colst - 1].Value2.ToString();
                     }
                     else
                     {
-                        throw new EmptyCell(rowst - 1, i, ws);
+                        throw new EmptyCell(i1, colst - 1, ws);
                     }
-                    result.Add(currstr, new Dictionary<string, double> { });
-                    for (int i1 = rowst; i1 < rowend; i1++)
+
+                    if (!(result[currstr].ContainsKey(currstrins)))
                     {
-                        string currstrins = "";
-                        if ((ws.Cells[i1, colst-1].Text != ""))
+                        if ((ws.Cells[i1, i].Text != ""))
                         {
-                            currstrins = ws.Cells[i1, colst - 1].Value2.ToString();
+                            result[currstr].Add(currstrins, ws.Cells[i1, i].Value2);
                         }
                         else
                         {
-                            throw new EmptyCell(i1, colst - 1, ws);
+                            throw new EmptyCell(i1, i, ws);
                         }
 
-                        if (!(result[currstr].ContainsKey(currstrins)))
-                        {
-                            if ((ws.Cells[i1, i].Text != ""))
-                            {
-                                result[currstr].Add(currstrins, ws.Cells[i1, i].Value2);
-                            }
-                            else
-                            {
-                                throw new EmptyCell(i1, i, ws);
-                            }
-
-                        }
                     }
-
                 }
 
-
             }
+            }
+
+
+
             catch (System.Runtime.InteropServices.COMException e)
             {
                 flag = true;
@@ -166,7 +173,7 @@ namespace InputModule
             {
                 excelApp.Quit();
                 GC.Collect();
-                
+
             }
             if (flag) System.Environment.Exit(0);
             return result;
@@ -189,12 +196,14 @@ namespace InputModule
             return result;
         }
 
-        public static Dictionary<string, Dictionary<string, double>> RunInputModule(string FilePath,InputModule.InputText.KeyValues InsertedValues)
+       
+
+        public static Dictionary<string, Dictionary<string, double>> RunInputModule(string FilePath, InputModule.InputText.KeyValues InsertedValues)
         {
             Dictionary<string, Dictionary<string, double>> Unsorted = ReadFromExcelFile(FilePath);
             /*RetPair afterFirstSort = FilterByDetection(Unsorted, InsertedValues);*/
             return Unsorted;
-            
+
 
         }
 

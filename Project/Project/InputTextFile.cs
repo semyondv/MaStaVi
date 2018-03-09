@@ -34,7 +34,7 @@ namespace InputModule
             string line; 
             // Read the file and display it line by line.  
             System.IO.StreamReader file =
-                new System.IO.StreamReader("apc.txt");
+                new System.IO.StreamReader("mapsnkeys//apc.txt");
             while ((line = file.ReadLine()) != null)
             {
                 string[] arr = line.Split(' ');

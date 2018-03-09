@@ -1,0 +1,33 @@
+E:\Мое\Мехмат\Project\Project\bin\Debug\Map Statistical Visualisator.exe.config
+E:\Мое\Мехмат\Project\Project\bin\Debug\Map Statistical Visualisator.exe
+E:\Мое\Мехмат\Project\Project\bin\Debug\Map Statistical Visualisator.pdb
+E:\Мое\Мехмат\Project\Project\obj\Debug\Map Statistical Visualisator.csprojResolveAssemblyReference.cache
+E:\Мое\Мехмат\Project\Project\obj\Debug\Project.DialogSettings.resources
+E:\Мое\Мехмат\Project\Project\obj\Debug\Project.Font1.resources
+E:\Мое\Мехмат\Project\Project\obj\Debug\Project.Properties.Resources.resources
+E:\Мое\Мехмат\Project\Project\obj\Debug\Map Statistical Visualisator.csproj.GenerateResource.Cache
+E:\Мое\Мехмат\Project\Project\obj\Debug\Map Statistical Visualisator.csproj.CoreCompileInputs.cache
+E:\Мое\Мехмат\Project\Project\obj\Debug\Map Statistical Visualisator.exe
+E:\Мое\Мехмат\Project\Project\obj\Debug\Map Statistical Visualisator.pdb
+C:\Users\Sokolov\Desktop\Книги  маме\Project\Project\bin\Debug\Map Statistical Visualisator.exe.config
+C:\Users\Sokolov\Desktop\Книги  маме\Project\Project\bin\Debug\Map Statistical Visualisator.exe
+C:\Users\Sokolov\Desktop\Книги  маме\Project\Project\bin\Debug\Map Statistical Visualisator.pdb
+C:\Users\Sokolov\Desktop\Книги  маме\Project\Project\obj\Debug\Map Statistical Visualisator.csprojResolveAssemblyReference.cache
+C:\Users\Sokolov\Desktop\Книги  маме\Project\Project\obj\Debug\Project.DialogSettings.resources
+C:\Users\Sokolov\Desktop\Книги  маме\Project\Project\obj\Debug\Project.Font1.resources
+C:\Users\Sokolov\Desktop\Книги  маме\Project\Project\obj\Debug\Project.Properties.Resources.resources
+C:\Users\Sokolov\Desktop\Книги  маме\Project\Project\obj\Debug\Map Statistical Visualisator.csproj.GenerateResource.Cache
+C:\Users\Sokolov\Desktop\Книги  маме\Project\Project\obj\Debug\Map Statistical Visualisator.exe
+C:\Users\Sokolov\Desktop\Книги  маме\Project\Project\obj\Debug\Map Statistical Visualisator.pdb
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\bin\Debug\Map Statistical Visualisator.exe.config
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\bin\Debug\Map Statistical Visualisator.exe
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\bin\Debug\Map Statistical Visualisator.pdb
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Debug\Map Statistical Visualisator.csprojResolveAssemblyReference.cache
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Debug\Project.DialogSettings.resources
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Debug\Project.Font1.resources
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Debug\Project.Properties.Resources.resources
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Debug\Map Statistical Visualisator.csproj.GenerateResource.Cache
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Debug\Map Statistical Visualisator.exe
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Debug\Map Statistical Visualisator.pdb
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Debug\Map Statistical Visualisator.csproj.ResolveComReference.cache
+C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\bin\Debug\DrawMap.dll
