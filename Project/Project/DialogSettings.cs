@@ -15,9 +15,9 @@ namespace Project
 
         PictureBox[] colorpictures = new PictureBox[0];
         Button[] colorbuttons = new Button[0];
-		public int[] red;
-		public int[] green;
-		public int[] blue;
+		public static int[] red;
+		public static int[] green;
+		public static int[] blue;
 
         bool CheckActive = false;
         public DialogSettings()

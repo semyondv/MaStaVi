@@ -76,6 +76,13 @@ namespace Project
         {
             if (MainPicture.Image != null) //если в pictureBox есть изображение
             {
+                Bitmap bmp1 = new Bitmap(MainPicture.Image);
+                Bitmap bmp2 = new Bitmap(LegendPicture.Image);
+                Bitmap final_bmp = new Bitmap(bmp1.Width, bmp1.Height + bmp2.Height);
+                Graphics g = Graphics.FromImage(final_bmp);
+                g.DrawImage(bmp1, 0, 0, bmp1.Width, bmp1.Height);
+                g.DrawImage(bmp2, 0, bmp1.Height, bmp2.Width, bmp2.Height);
+                g.Dispose();
                 //создание диалогового окна "Сохранить как..", для сохранения изображения
                 SaveFileDialog savedialog = new SaveFileDialog();
                 savedialog.Title = "Сохранить картинку как...";
@@ -89,7 +96,9 @@ namespace Project
                 {
                     try
                     {
-                        MainPicture.Image.Save(savedialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        final_bmp.Save(savedialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                        //MainPicture.Image.Save(savedialog.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
                     }
                     catch
                     {
