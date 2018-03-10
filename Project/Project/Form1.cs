@@ -52,11 +52,12 @@ namespace Project
         private void Picture2D_Click(object sender, EventArgs e)
         {
           //  try
+          //формат ARGB
             {
                 if (int.TryParse(DialSet.Drob.Text, out x));
                 InputModule.InputText.KeyValues PictureMap = InputModule.InputText.EnterValues();
                 Dictionary < string, Dictionary < string, double>> q = InputModule.Input.RunInputModule(PathToFile, PictureMap);
-                List<Tuple<int[], int[], int[], int[], int[]>> lv = SorterModule.Sorter.ToDrawer(q, PictureMap, 128, 128, 0, 255, 255, 0);
+                List<Tuple<int[], int[], int[], int[], int[],int[]>> lv = SorterModule.Sorter.ToDrawer(q, PictureMap,true);
                 string s = "mapsnkeys//map5.png";
                 GraphABC.Picture p = new GraphABC.Picture(s);
                 DrawMap.DrawMap.PaintMap(s, lv.First().Item3, lv.First().Item4, lv.First().Item5, lv.First().Item1, lv.First().Item2);
