@@ -10,3 +10,15 @@ C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Relea
 C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Map Statistical Visualisator.csproj.GenerateResource.Cache
 C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Map Statistical Visualisator.exe
 C:\Users\Sokolov\Documents\Visual Studio 2017\Projects\Project\Project\obj\Release\Map Statistical Visualisator.pdb
+D:\Gits2\MaStaVi\Project\Project\bin\Release\Map Statistical Visualisator.exe.config
+D:\Gits2\MaStaVi\Project\Project\bin\Release\Map Statistical Visualisator.exe
+D:\Gits2\MaStaVi\Project\Project\bin\Release\Map Statistical Visualisator.pdb
+D:\Gits2\MaStaVi\Project\Project\bin\Release\DrawMap.dll
+D:\Gits2\MaStaVi\Project\Project\obj\Release\Map Statistical Visualisator.csprojResolveAssemblyReference.cache
+D:\Gits2\MaStaVi\Project\Project\obj\Release\Map Statistical Visualisator.csproj.ResolveComReference.cache
+D:\Gits2\MaStaVi\Project\Project\obj\Release\Project.DialogSettings.resources
+D:\Gits2\MaStaVi\Project\Project\obj\Release\Project.Font1.resources
+D:\Gits2\MaStaVi\Project\Project\obj\Release\Project.Properties.Resources.resources
+D:\Gits2\MaStaVi\Project\Project\obj\Release\Map Statistical Visualisator.csproj.GenerateResource.Cache
+D:\Gits2\MaStaVi\Project\Project\obj\Release\Map Statistical Visualisator.exe
+D:\Gits2\MaStaVi\Project\Project\obj\Release\Map Statistical Visualisator.pdb

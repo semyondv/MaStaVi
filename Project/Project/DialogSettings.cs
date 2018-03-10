@@ -13,9 +13,11 @@ namespace Project
     public partial class DialogSettings : Form
     {
 
-        Label[] colorlabels = new Label[0];
         PictureBox[] colorpictures = new PictureBox[0];
         Button[] colorbuttons = new Button[0];
+		public int[] red;
+		public int[] green;
+		public int[] blue;
 
         bool CheckActive = false;
         public DialogSettings()
@@ -29,9 +31,12 @@ namespace Project
 
             Array.Resize(ref colorpictures, count);
             Array.Resize(ref colorbuttons, count);
+			Array.Resize(ref red, count);
+			Array.Resize(ref green, count);
+			Array.Resize(ref blue, count);
 
-            Point p = new Point(115, 104);
-            Point b = new Point(13, 103);
+			Point p = new Point(115, 95);
+            Point b = new Point(13, 94);
 
             Random r = new Random();
             
@@ -43,9 +48,7 @@ namespace Project
                 colorpictures[i].Location = p;
                 colorpictures[i].Visible = false;
                 p = new Point(p.X, p.Y + 26);
-				colorpictures[i].BackColor = Color.FromArgb(0,0,0);
-				while (colorpictures[i].BackColor == Color.FromArgb(0,0,0))
-					colorpictures[i].BackColor = Color.FromArgb(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255));
+                colorpictures[i].BackColor = Color.FromArgb(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255));
                 colorpictures[i].Tag = i;
                 Controls.Add(colorpictures[i]);
 
@@ -60,6 +63,13 @@ namespace Project
                 Controls.Add(colorbuttons[i]);
                 colorbuttons[i].Click += new EventHandler(button1_Click);
             }
+			for (int i = 0; i < count; i++)
+			{
+				Color c = colorpictures[i].BackColor;
+				red[i] = c.R;
+				green[i] = c.G;
+				blue[i] = c.B;
+			}
         }
 
         private void DialogSettings_Load(object sender, EventArgs e)
@@ -167,6 +177,7 @@ namespace Project
                 if (int.TryParse(Drob.Text, out a))
                     if (a > 0 && a < 21)
                     {
+
                         for (int i = 1; i <= int.Parse(Drob.Text); i++)
                         {
                             colorbuttons[i - 1].Visible = true;
