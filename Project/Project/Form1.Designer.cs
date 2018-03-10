@@ -193,6 +193,7 @@
             this.Name = "Font1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Map Statistical Visualisator (Beta)";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Font1_FormClosing);
             this.Load += new System.EventHandler(this.Font1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MainPicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LegendPicture)).EndInit();

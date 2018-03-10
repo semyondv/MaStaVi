@@ -14,13 +14,15 @@ namespace Project
     public partial class Font1 : Form
     {
 
-        static DialogSettings DialSet = new DialogSettings();
+        public static DialogSettings DialSet = new DialogSettings();
 
         public bool SecWindow = false;
 
         public string PathToFile = "";
 
-		bool AutoGen = DialSet.AutoGenBox.Checked;
+		public static bool AutoGen = DialSet.AutoGenBox.Checked;
+
+        public static int x = 0;
 
 		public Font1()
         {
@@ -51,13 +53,16 @@ namespace Project
         {
           //  try
             {
+                if (int.TryParse(DialSet.Drob.Text, out x));
                 InputModule.InputText.KeyValues PictureMap = InputModule.InputText.EnterValues();
                 Dictionary < string, Dictionary < string, double>> q = InputModule.Input.RunInputModule(PathToFile, PictureMap);
                 List<Tuple<int[], int[], int[], int[], int[]>> lv = SorterModule.Sorter.ToDrawer(q, PictureMap, 128, 128, 0, 255, 255, 0);
                 string s = "mapsnkeys//map5.png";
-                var p = DrawMap.DrawMap.PaintMap(s, lv.First().Item3, lv.First().Item4, lv.First().Item5, lv.First().Item1, lv.First().Item2);
+                GraphABC.Picture p = new GraphABC.Picture(s);
+                DrawMap.DrawMap.PaintMap(s, lv.First().Item3, lv.First().Item4, lv.First().Item5, lv.First().Item1, lv.First().Item2);
                 MainPicture.Image = Image.FromFile("Map stats.png");
                 label1.Text = InputModule.Input.nam;
+               // DrawMap.DrawMap.PaintLegend()
 
             }
             /*catch (Exception exception)
@@ -146,6 +151,11 @@ namespace Project
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Font1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }

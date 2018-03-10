@@ -23,7 +23,7 @@ namespace InputModule
 
         public static string nam = "";
 
-
+        public static List<SorterModule.Sorter.Border> Divs = new List<SorterModule.Sorter.Border> { };
 
         class KWNotFound : Exception
         {
@@ -69,7 +69,10 @@ namespace InputModule
             {
                 throw new KWNotFound();
             }
-            
+            if (!Project.Font1.AutoGen)
+            {
+                   Divs = InputDividers(ws, Project.Font1.x);
+            }
             int colst = excelcells.Column + 1;
             int rowst = excelcells.Row + 2;
             nam = ws.Cells[rowst-1, colst-1].Text();
@@ -196,6 +199,29 @@ namespace InputModule
             return result;
         }
 
+        public static List<SorterModule.Sorter.Border> InputDividers(Excel.Worksheet ws,int n)
+        {
+            List<SorterModule.Sorter.Border> Divs = new List<SorterModule.Sorter.Border> { };
+            var excelcells = ws.Cells.Find("!Dividers!", Missing.Value, Missing.Value, Excel.XlLookAt.xlPart, Missing.Value,
+   Excel.XlSearchDirection.xlNext,
+   Missing.Value, Missing.Value, Missing.Value);
+            if (excelcells == null)
+            {
+                throw new KWNotFound();
+            }
+            int colst = excelcells.Column;
+            int rowst = excelcells.Row + 1;
+            int colend = colst;
+            int rowend = rowst;
+         
+            // Excel.Range r = ws.Range[ws.Cells[rowst,colst],ws.Cells[rowst+1000,colst + 1000]];
+            for (int i = 0; i < n; i++)
+            {
+                Divs.Add(new SorterModule.Sorter.Border(ws.Cells[rowst + i, colst ].Value2, ws.Cells[rowst + i, colst + 1].Value2));
+            }
+            return Divs;
+         
+        }
        
 
         public static Dictionary<string, Dictionary<string, double>> RunInputModule(string FilePath, InputModule.InputText.KeyValues InsertedValues)

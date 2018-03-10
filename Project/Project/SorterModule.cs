@@ -10,7 +10,7 @@ namespace SorterModule
 {
     public class Sorter
     {
-        protected struct Border
+        public struct Border
         {
             public double min;
             public double max;
@@ -25,7 +25,7 @@ namespace SorterModule
         static int Gstep = 0;
         static int Bstep = 0;
 
-        protected static List<Border> Dividers = new List<Border> { };
+        public static List<Border> Dividers = new List<Border> { };
         private static List<double> FormList(Dictionary<string, Dictionary<string, double>> US)
         {
             List<double> result = new List<double> { };
@@ -156,21 +156,19 @@ namespace SorterModule
             CRstep(Rstart, Rend);
             CBstep(Bstart, Bend);
             CGstep(Gstart, Gend);
-            List<Tuple<int[], int[], int[], int[], int[]>> res = new List<Tuple<int[], int[], int[], int[], int[]>> { };
-            int n = US.Count;
-            if ( US.First().Value.Count < 30)
+            int n = Project.Font1.x;
+            if (n == 0)
             {
-                n = Math.Min(US.Count, 5);
+                throw new Exception();
             }
-            if (US.First().Value.Count >= 30)
-            {
-                n = 10;
-            }
- 
-            
-            if (Dividers.Count == 0)
+            List<Tuple<int[], int[], int[], int[], int[]>> res = new List<Tuple<int[], int[], int[], int[], int[]>> { };       
+            if ((Dividers.Count == 0)&&(Project.Font1.AutoGen))
             {
                 GenerateDividers(US, n);
+            }
+            else
+            {
+                Dividers = InputModule.Input.Divs;
             }
             CRstep(Rstart, Rend);
             CBstep(Bstart, Bend);
