@@ -60,7 +60,7 @@ namespace Project
                 List<Tuple<int[], int[], int[], int[], int[],int[]>> lv = SorterModule.Sorter.ToDrawer(q, PictureMap,true);
                 string s = "mapsnkeys//map5.png";
                 GraphABC.Picture p = new GraphABC.Picture(s);
-                DrawMap.DrawMap.PaintMap(s, lv.First().Item3, lv.First().Item4, lv.First().Item5, lv.First().Item1, lv.First().Item2);
+                DrawMap.DrawMap.PaintMap(s, lv.First().Item3, lv.First().Item4, lv.First().Item5, lv.First().Item6, lv.First().Item1, lv.First().Item2);
                 MainPicture.Image = Image.FromFile("Map stats.png");
                 label1.Text = InputModule.Input.nam;
                // DrawMap.DrawMap.PaintLegend()
