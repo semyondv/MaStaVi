@@ -22,7 +22,7 @@ namespace SorterModule
         }
 
         static int Rstep = 0;
-        static int Gstep = 0;
+        static int Astep = 0;
         static int Bstep = 0;
 
         public static List<Border> Dividers = new List<Border> { };
@@ -71,11 +71,12 @@ namespace SorterModule
             else Rstep = 0;
         }
 
-        static void CGstep(int Gstart, int Gend)
+        static void CAstep()
         {
             if (Dividers.Count != 0)
-            { Gstep = (Gend - Gstart) / Dividers.Count; }
-            else Gstep = 0;
+            { Astep = (215 / Dividers.Count); }
+            else
+              Astep = 0;
         }
 
        static void CBstep(int Bstart, int Bend)
@@ -87,7 +88,7 @@ namespace SorterModule
         }
 
 
-        private static Tuple<int,int,int> GetColor (double q, int Rstart,int Gstart,int Bstart, int Rend, int Gend, int Bend)
+        /*private static Tuple<int,int,int> GetColor (double q, int Rstart,int Gstart,int Bstart, int Rend, int Gend, int Bend)
         {
             int z = 0;
             foreach (var p in Dividers)
@@ -105,7 +106,36 @@ namespace SorterModule
              Math.Min(Gstart + z * Gstep, Gend),
              Math.Min(Bstart + z * Bstep, Bend));
            
+        
+        }*/
 
+         public static int GetColorIndex(double q)
+        {
+            int z = 0;
+            foreach (var p in Dividers)
+            {
+                if ((q >= p.min) && (q < p.max))
+                {
+                    z = Dividers.IndexOf(p);
+                    break;
+                }
+            }
+            return z;
+
+        }
+
+        public static int GetGradient(double q)
+        {
+            int z = 0;
+            foreach (var p in Dividers)
+            {
+                if ((q >= p.min) && (q < p.max))
+                {
+                    z = Dividers.IndexOf(p);
+                    break;
+                }
+            }
+            return Math.Min(40+(z*Astep),255);
         }
 
         /*public static List<int> GetSplitList( int b, int e)//For paint
@@ -135,7 +165,46 @@ namespace SorterModule
             return 0;
         }*/
 
+        public static double[] FormForLegend()
+        {
+            double[] q = new double[Dividers.Count+1];
+            q[0] = Dividers[0].min;
+            for(int i = 0; i<Dividers.Count; i++)
+            {
+                q[i+1] = Dividers[i].max;
+            }
+            return q;
+        }
 
+        public static Tuple<int[], int[], int[], int[]> FormForLegendColors(bool isGrad)
+        {
+            int[] a = new int[Dividers.Count];
+            int[] r = new int[Dividers.Count];
+            int[] g = new int[Dividers.Count];
+            int[] b = new int[Dividers.Count];
+            if (isGrad)
+            {
+                for (int i = 0; i < Dividers.Count; i++)
+                {
+                    a[i] = 255;
+                }
+                r = Project.DialogSettings.red;
+                g = Project.DialogSettings.green;
+                b = Project.DialogSettings.blue;
+            }
+            else
+            {
+                for (int i = 0; i < Dividers.Count; i++)
+                {
+                    r[i] = Project.DialogSettings.red[0];
+                    g[i] = Project.DialogSettings.green[0];
+                    b[i] = Project.DialogSettings.blue[0];
+                    a[i] = Math.Min(40 + Astep * i, 255);
+                }
+                
+            }
+            return new Tuple<int[], int[], int[], int[]>(a, r, g, b);
+        }
 
         private static string TryFind(string s, InputModule.InputText.KeyValues KeyVals)//A stripped-down auto corrector. Lowercases and exchanges " " on "_"
         {
@@ -151,17 +220,17 @@ namespace SorterModule
         }
 
         //Работает. Пропускает неопределенные значения
-        public static List<Tuple<int[],int[],int[],int[],int[]>> ToDrawer(Dictionary<string, Dictionary<string, double>> US, InputModule.InputText.KeyValues KeyVals,int Rstart,int Gstart,int Bstart, int Rend, int Gend, int Bend)
+        public static List<Tuple<int[],int[],int[],int[],int[],int[]>> ToDrawer(Dictionary<string, Dictionary<string, double>> US, InputModule.InputText.KeyValues KeyVals,bool Gradient)
         {
-            CRstep(Rstart, Rend);
-            CBstep(Bstart, Bend);
-            CGstep(Gstart, Gend);
+           // CRstep(Rstart, Rend);
+           // CBstep(Bstart, Bend);
+            //CGstep(Gstart, Gend);
             int n = Project.Font1.x;
             if (n == 0)
             {
                 throw new Exception();
             }
-            List<Tuple<int[], int[], int[], int[], int[]>> res = new List<Tuple<int[], int[], int[], int[], int[]>> { };       
+            List<Tuple<int[], int[], int[], int[], int[],int[]>> res = new List<Tuple<int[],int[], int[], int[], int[], int[]>> { };       
             if ((Dividers.Count == 0)&&(Project.Font1.AutoGen))
             {
                 GenerateDividers(US, n);
@@ -170,9 +239,9 @@ namespace SorterModule
             {
                 Dividers = InputModule.Input.Divs;
             }
-            CRstep(Rstart, Rend);
-            CBstep(Bstart, Bend);
-            CGstep(Gstart, Gend);
+            // CRstep(Rstart, Rend);
+            // CBstep(Bstart, Bend);
+            CAstep();
             foreach (var item in US)
             {
                 
@@ -182,43 +251,87 @@ namespace SorterModule
                 int[] q3 = new int[US[item.Key].Count];
                 int[] q4 = new int[US[item.Key].Count];
                 int[] q5 = new int[US[item.Key].Count];
+                int[] q6 = new int[US[item.Key].Count];
                 int i = 0;
                 foreach (var item1 in item.Value)
                 {
-                    if (KeyVals.Dict.ContainsKey(item1.Key))
+                    if (!Gradient)
                     {
-                        q1[i] = KeyVals.Dict[item1.Key].X;
-                        q2[i] = KeyVals.Dict[item1.Key].Y;
-                        var t = GetColor(item1.Value, Rstart, Gstart, Bstart, Rend, Gend, Bend);
-                        q3[i] = t.Item1;
-                        q4[i] = t.Item2;
-                        q5[i] = t.Item3;
-
-                    }
-                    else
-                    {
-                        string s1 = TryFind(item1.Key, KeyVals);
-                        if (s1 != "")
+                        if (KeyVals.Dict.ContainsKey(item1.Key))
                         {
-                            q1[i] = KeyVals.Dict[s1].X;
-                            q2[i] = KeyVals.Dict[s1].Y;
-                            var t = GetColor(item1.Value, Rstart, Gstart, Bstart, Rend, Gend, Bend);
-                            q3[i] = t.Item1;
-                            q4[i] = t.Item2;
-                            q5[i] = t.Item3;
+                            q1[i] = KeyVals.Dict[item1.Key].X;
+                            q2[i] = KeyVals.Dict[item1.Key].Y;
+                            int f = GetColorIndex(item1.Value);
+                            q3[i] = 255;
+                            q4[i] = Project.DialogSettings.red[f];
+                            q5[i] = Project.DialogSettings.green[f];
+                            q6[i] = Project.DialogSettings.blue[f];
+
                         }
                         else
                         {
-                            q1[i] = 0;
-                            q2[i] = 0;
-                            q3[i] = 0;
-                            q4[i] = 0;
-                            q5[i] = 0;
+                            string s1 = TryFind(item1.Key, KeyVals);
+                            if (s1 != "")
+                            {
+                                q1[i] = KeyVals.Dict[s1].X;
+                                q2[i] = KeyVals.Dict[s1].Y;
+                                int f = GetColorIndex(item1.Value);
+                                q3[i] = 255;
+                                q4[i] = Project.DialogSettings.red[f];
+                                q5[i] = Project.DialogSettings.green[f];
+                                q6[i] = Project.DialogSettings.blue[f];
+                            }
+                            else
+                            {
+                                q1[i] = 0;
+                                q2[i] = 0;
+                                q3[i] = 0;
+                                q4[i] = 0;
+                                q5[i] = 0;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        {
+                            if (KeyVals.Dict.ContainsKey(item1.Key))
+                            {
+                                q1[i] = KeyVals.Dict[item1.Key].X;
+                                q2[i] = KeyVals.Dict[item1.Key].Y;
+                                int f = GetColorIndex(item1.Value);
+                                q3[i] = GetGradient(item1.Value);
+                                q4[i] = Project.DialogSettings.red[0];
+                                q5[i] = Project.DialogSettings.green[0];
+                                q6[i] = Project.DialogSettings.blue[0];
+
+                            }
+                            else
+                            {
+                                string s1 = TryFind(item1.Key, KeyVals);
+                                if (s1 != "")
+                                {
+                                    q1[i] = KeyVals.Dict[s1].X;
+                                    q2[i] = KeyVals.Dict[s1].Y;
+                                    int f = GetColorIndex(item1.Value);
+                                    q3[i] = GetGradient(item1.Value);
+                                    q4[i] = Project.DialogSettings.red[0];
+                                    q5[i] = Project.DialogSettings.green[0];
+                                    q6[i] = Project.DialogSettings.blue[0];
+                                }
+                                else
+                                {
+                                    q1[i] = 0;
+                                    q2[i] = 0;
+                                    q3[i] = 0;
+                                    q4[i] = 0;
+                                    q5[i] = 0;
+                                }
+                            }
                         }
                     }
                     i += 1;
                 }
-                res.Add(new Tuple<int[], int[], int[], int[], int[]>(q1, q2, q3, q4, q5));
+                res.Add(new Tuple<int[], int[], int[], int[], int[],int[]>(q1, q2, q3, q4, q5,q6));
             }
 
             return res;
