@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 namespace InputModule
 {
@@ -59,25 +60,30 @@ namespace InputModule
             Dictionary<string, Dictionary<string, double>> result = new Dictionary<string, Dictionary<string, double>> { };
             try
             {
-
                 excelWB = excelApp.Workbooks.Open(FilePath);
-            Excel.Worksheet ws = excelWB.Sheets[1];
-            var excelcells = ws.Cells.Find("!Table!", Missing.Value, Missing.Value, Excel.XlLookAt.xlPart, Missing.Value,
-   Excel.XlSearchDirection.xlNext,
-   Missing.Value, Missing.Value, Missing.Value);
-            if (excelcells == null)
-            {
-                throw new KWNotFound();
-            }
-            if (!Project.DialogSettings.AutoGen)
-            {
-                   Divs = InputDividers(ws, Project.Font1.x);
-            }
-            int colst = excelcells.Column + 1;
-            int rowst = excelcells.Row + 2;
-            nam = ws.Cells[rowst-1, colst-1].Text();
-            int colend = colst;
-            int rowend = rowst;
+                Excel.Worksheet ws = excelWB.Sheets[1];
+                var excelcells = ws.Cells.Find("!Table!", 
+                    Missing.Value, Missing.Value, 
+                    Excel.XlLookAt.xlPart, 
+                    Missing.Value, 
+                    Excel.XlSearchDirection.xlNext, 
+                    Missing.Value, Missing.Value, 
+                    Missing.Value);
+                
+                if (excelcells == null)
+                {
+                    throw new KWNotFound();
+                }
+                if (!Project.DialogSettings.AutoGen)
+                {
+                    Divs = InputDividers(ws, Project.Font1.x);
+                }
+                
+                int colst = excelcells.Column + 1;
+                int rowst = excelcells.Row + 2;
+                nam = ws.Cells[rowst-1, colst-1].Text();
+                int colend = colst;
+                int rowend = rowst;
             // Excel.Range r = ws.Range[ws.Cells[rowst,colst],ws.Cells[rowst+1000,colst + 1000]];
             while (true)
             {
@@ -148,10 +154,12 @@ namespace InputModule
                 }
 
             }
+                
+                
+                excelWB.Close();
+                excelApp.Quit();
             }
-
-
-
+                
             catch (System.Runtime.InteropServices.COMException e)
             {
                 flag = true;
@@ -171,15 +179,16 @@ namespace InputModule
                 flag = true;
                 excelWB.Close(true);
             }
-
             finally
             {
+                excelWB.Close();
                 excelApp.Quit();
                 GC.Collect();
 
             }
+            
             if (flag) System.Environment.Exit(0);
-            return result;
+                return result;
         }
         // Модуль автокоррекции опечаток надо переделать. Пока просто пропускаем неопределенные значения в сортировщике.
         private static RetPair FilterByDetection(Dictionary<string, Dictionary<string, double>> unsorted, InputModule.InputText.KeyValues InsertedValues)
