@@ -55,7 +55,7 @@ namespace SorterModule
                 int e = n1;
                 while (e <= tosort.Count)
                 {
-                    Dividers.Add(new Border(tosort[s], tosort[e]));
+                    Dividers.Add(new Border(tosort[s], tosort[Math.Min(e,tosort.Count-1)]));
                     s = e; e = e + n1;
                 }
                 Dividers[0] = new Border(double.MinValue, Dividers[0].min);
@@ -231,7 +231,7 @@ namespace SorterModule
                 throw new Exception();
             }
             List<Tuple<int[], int[], int[], int[], int[],int[]>> res = new List<Tuple<int[],int[], int[], int[], int[], int[]>> { };       
-            if ((Dividers.Count == 0)&&(Project.Font1.AutoGen))
+            if ((Dividers.Count == 0)&&(Project.DialogSettings.AutoGen))
             {
                 GenerateDividers(US, n);
             }

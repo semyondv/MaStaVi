@@ -12,7 +12,7 @@ namespace Project
 {
     public partial class DialogSettings : Form
     {
-
+        public static bool AutoGen = false;
         PictureBox[] colorpictures = new PictureBox[0];
         Button[] colorbuttons = new Button[0];
 		public static int[] red;
@@ -212,6 +212,9 @@ namespace Project
             }
         }
 
-  
+        private void AutoGenBox_CheckedChanged(object sender, EventArgs e)
+        {
+            AutoGen = !AutoGen;
+        }
     }
 }

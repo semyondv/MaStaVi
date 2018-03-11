@@ -69,7 +69,7 @@ namespace InputModule
             {
                 throw new KWNotFound();
             }
-            if (!Project.Font1.AutoGen)
+            if (!Project.DialogSettings.AutoGen)
             {
                    Divs = InputDividers(ws, Project.Font1.x);
             }

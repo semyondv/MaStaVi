@@ -115,6 +115,7 @@
             this.AutoGenBox.TabIndex = 10;
             this.AutoGenBox.Text = "Автоматическое разделение данных";
             this.AutoGenBox.UseVisualStyleBackColor = true;
+            this.AutoGenBox.CheckedChanged += new System.EventHandler(this.AutoGenBox_CheckedChanged);
             // 
             // DialogSettings
             // 
