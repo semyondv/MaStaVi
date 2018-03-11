@@ -126,6 +126,7 @@
             this.LegendPicture.Size = new System.Drawing.Size(693, 43);
             this.LegendPicture.TabIndex = 6;
             this.LegendPicture.TabStop = false;
+            //this.LegendPicture.Click += new System.EventHandler(this.LegendPicture_Click);
             // 
             // label1
             // 

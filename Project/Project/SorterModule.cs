@@ -165,7 +165,46 @@ namespace SorterModule
             return 0;
         }*/
 
+        public static double[] FormForLegend()
+        {
+            double[] q = new double[Dividers.Count+1];
+            q[0] = Dividers[0].min;
+            for(int i = 0; i<Dividers.Count; i++)
+            {
+                q[i+1] = Dividers[i].max;
+            }
+            return q;
+        }
 
+        public static Tuple<int[], int[], int[], int[]> FormForLegendColors(bool isGrad)
+        {
+            int[] a = new int[Dividers.Count];
+            int[] r = new int[Dividers.Count];
+            int[] g = new int[Dividers.Count];
+            int[] b = new int[Dividers.Count];
+            if (isGrad)
+            {
+                for (int i = 0; i < Dividers.Count; i++)
+                {
+                    a[i] = 255;
+                }
+                r = Project.DialogSettings.red;
+                g = Project.DialogSettings.green;
+                b = Project.DialogSettings.blue;
+            }
+            else
+            {
+                for (int i = 0; i < Dividers.Count; i++)
+                {
+                    r[i] = Project.DialogSettings.red[0];
+                    g[i] = Project.DialogSettings.green[0];
+                    b[i] = Project.DialogSettings.blue[0];
+                    a[i] = Math.Min(40 + Astep * i, 255);
+                }
+                
+            }
+            return new Tuple<int[], int[], int[], int[]>(a, r, g, b);
+        }
 
         private static string TryFind(string s, InputModule.InputText.KeyValues KeyVals)//A stripped-down auto corrector. Lowercases and exchanges " " on "_"
         {

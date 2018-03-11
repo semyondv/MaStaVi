@@ -57,13 +57,17 @@ namespace Project
                 if (int.TryParse(DialSet.Drob.Text, out x));
                 InputModule.InputText.KeyValues PictureMap = InputModule.InputText.EnterValues();
                 Dictionary < string, Dictionary < string, double>> q = InputModule.Input.RunInputModule(PathToFile, PictureMap);
-                List<Tuple<int[], int[], int[], int[], int[],int[]>> lv = SorterModule.Sorter.ToDrawer(q, PictureMap,true);
+                List<Tuple<int[], int[], int[], int[], int[],int[]>> lv = SorterModule.Sorter.ToDrawer(q, PictureMap,(DialogSettings.blue.Length ==1));
                 string s = "mapsnkeys//map5.png";
                 GraphABC.Picture p = new GraphABC.Picture(s);
                 DrawMap.DrawMap.PaintMap(s, lv.First().Item3, lv.First().Item4, lv.First().Item5, lv.First().Item6, lv.First().Item1, lv.First().Item2);
                 MainPicture.Image = Image.FromFile("Map stats.png");
                 label1.Text = InputModule.Input.nam;
-               // DrawMap.DrawMap.PaintLegend()
+                double[] a = SorterModule.Sorter.FormForLegend();
+                Tuple<int[], int[], int[], int[]> ffl = SorterModule.Sorter.FormForLegendColors(DialogSettings.blue.Length == 1);
+                DrawMap.DrawMap.LegendOfFile(ffl.Item1,ffl.Item2,ffl.Item3,ffl.Item4,a);
+                LegendPicture.Load("LegendOfFile.png");
+
 
             }
             /*catch (Exception exception)
@@ -167,5 +171,7 @@ namespace Project
         {
             System.Environment.Exit(0);
         }
+
+        
     }
 }
